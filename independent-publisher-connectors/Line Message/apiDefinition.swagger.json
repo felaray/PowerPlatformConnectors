@@ -508,7 +508,7 @@
     "api_key": {
       "type": "apiKey",
       "in": "header",
-      "name": "Authorization"
+      "name": "apikey"
     }
   },
   "security": [
@@ -522,7 +522,7 @@
       "type": "securestring",
       "uiDefinition": {
         "displayName": "Channel Access Token",
-        "description": "LINE Messaging API 的 Channel Access Token (不用加 Bearer)",
+        "description": "Channel Access Token from LINE Messaging API ",
         "tooltip": "Enter the Channel Access Token obtained from the LINE Developers Console.",
         "constraints": {
           "required": true
