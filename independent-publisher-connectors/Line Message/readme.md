@@ -35,6 +35,7 @@ The connector supports the following operations. For all "Send" actions, you can
 *   `Send Video Message`: Sends a video. Requires a URL for the video file and a preview image.
 *   `Send Audio Message`: Sends an audio file. Requires a URL for the audio file and its duration in milliseconds.
 *   `Send Location Message`: Sends a message with a map location, including title, address, and coordinates.
+*   `Send Custom Payload`: Sends a custom LINE push payload for advanced scenarios. Use this when you want to build the full `messages` array yourself or include additional push message fields.
 
 ## Usage Example (in Power Automate)
 
@@ -45,8 +46,31 @@ The connector supports the following operations. For all "Send" actions, you can
 3.  **Select Action:** Choose the **Send Text Message** action.
 4.  **Configure:**
     *   In the `to` field, enter the target User ID, Group ID, or Room ID you want to send the message to.
-    *   In the `messages_text` field, compose your message using dynamic content from the Planner trigger, for example: "New task created: [Title]".
+    *   In the `messages` field, add a Text message object and set its `text` value using dynamic content from the Planner trigger, for example: "New task created: [Title]".
 5.  Save and run the flow. Now, every new task in Planner will trigger a LINE message.
+
+## Advanced Usage
+
+If you need direct control over the LINE push payload, use **Send Custom Payload**. This action is useful when you want to provide your own `messages` array, send multiple message objects in one request, or include optional LINE push fields.
+
+Example custom payload:
+
+```json
+{
+  "to": "Uxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+  "messages": [
+    {
+      "type": "text",
+      "text": "Hello from Power Automate"
+    },
+    {
+      "type": "sticker",
+      "packageId": "1",
+      "stickerId": "1"
+    }
+  ]
+}
+```
 
 ## Known Issues and Limitations
 

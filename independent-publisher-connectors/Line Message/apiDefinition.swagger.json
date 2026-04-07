@@ -208,6 +208,37 @@
         }
       }
     },
+    "/v2/bot/message/push-custom": {
+      "post": {
+        "summary": "Send Custom Payload",
+        "description": "Sends a custom LINE message payload to a user, group, or room.",
+        "operationId": "SendCustomPayload",
+        "x-ms-policies": {
+          "SetBearer": {
+            "type": "SetHttpHeader",
+            "parameters": {
+              "x-ms-header-name": "Authorization",
+              "x-ms-value": "Bearer @{connectionParameters('api_token')}"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CustomPayloadBody"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/v2/bot/profile/{userId}": {
       "get": {
         "summary": "Get User Profile",
@@ -346,6 +377,31 @@
           "items": {
             "$ref": "#/definitions/LocationMessage"
           }
+        }
+      },
+      "required": [
+        "to",
+        "messages"
+      ]
+    },
+    "CustomPayloadBody": {
+      "type": "object",
+      "properties": {
+        "to": {
+          "type": "string",
+          "description": "User ID, group ID, or room ID"
+        },
+        "messages": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": true
+          },
+          "description": "Any LINE message objects. Max 5."
+        },
+        "notificationDisabled": {
+          "type": "boolean",
+          "description": "Disable notification for this push message."
         }
       },
       "required": [
